@@ -1,691 +1,1201 @@
-<html xmlns:text-justify="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<title>Zhen Jia's Homepage </title>
-<style>
-body {
-font-family: "Times New Roman", "Helvetica Neue", Helvetica, Arial, sans-serif;
-color: #444;
-font-size: 62.5%;
-background: #f4f4f4;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zhen Jia's Homepage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --accent-color: #f59e0b;
+            --accent-light: #fbbf24;
+            --background: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --gradient-accent: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+        }
 
-a:link,
-a:visited {
-color: #1279f8;
-text-decoration: none;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-a:hover {
-text-decoration: underline;
-}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
 
-.main {
-display: flex;
-}
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
 
-.left {
-font-size: 16px;
-line-height: 1.3;
-background: #fff;
-border-radius: 6px;
--webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
-position: fixed;
-top: 8px;
-left: 8px;
-bottom: 8px;
-float: left;
-width: 285px;
-min-width: 285px;
-margin:0px;
-}
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
 
-.right {
-margin: 0 0 0 10px;
-flex-grow: 1;
-font-size: 16px;
-line-height: 1.8;
-background: #fff;
-border-radius: 6px;
-margin-left: 295px;
-padding-top:67px;
--webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
-}
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 30px;
+        }
 
-.rightBox {
-padding: 5px 100px 20px;
-border-top: 1px solid #eee;
-position: relative;
-}
-.rightBox>p{
-margin-top: -80px;
-padding-top: 80px;
-}
+        /* Left Sidebar */
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
 
-.rightBox table {
-border-top: 1px solid #e2b0b5;
-border-left: 1px solid #e2b0b5;
-}
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-.rightBox td,
-.rightBox th {
-border-right: 1px solid #e2b0b5;
-border-bottom: 1px solid #e2b0b5;
-}
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
 
-.rightBox th {
-padding: 10px;
-}
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.15);
+            transition: all 0.4s ease;
+        }
 
-.rightBox td {
-font-size: 16px;
-line-height: 1.8;
-padding: 10px;
-}
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 10px rgba(37, 99, 235, 0.2);
+        }
 
-.right h4 {
-font-family: "Roboto Condensed", sans-serif;
-margin-bottom: 10px;
-position: relative;
-color: #000;
-font-size: 18px;
-line-height: 20px;
-}
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-.text span {
-border: orangered 1px solid;
-color: #fff;
-padding: 0px 8px;
-margin-right: 8px;
-border-radius: 10px;
-color: orangered;
-}
+        .title {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
 
-.box {
-padding: 20px 30px;
-border-top: 1px solid #eee;
-position: relative;
-}
+        .affiliation {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
 
-h1 {
-margin: 0 0 10px 0;
-text-align: center;
-font-size: 20px
-}
+        .affiliation a {
+            font-weight: 500;
+        }
 
-h1 p {
-text-align: center;
-}
+        /* Contact Section */
+        .contact-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+        }
 
-.headerImg {
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
 
-display: block;
-width: 200px;
-height: 200px;
-margin: 0 auto 5px auto;
-border-radius: 10%;
-}
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
 
-h3 {
-margin: 0 0 10px 0;
-font-size: 18px;
-font-weight: 500;
-letter-spacing: .02em;
-text-transform: uppercase;
-color: #999;
-}
+        .contact-item:last-child {
+            border-bottom: none;
+        }
 
-.wrap {
-position: fixed;
-top: 8px; right: 8px; left: 303px;
-border-bottom: 1px solid #f4f4f4;
-background: #fff; z-index: 10;
-}
-.wrap:before {
-display: block;
-content: '';
-position: fixed;
-top: 0px; right: 8px; left: 303px; height: 8px;
-background: #f4f4f4;
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
 
-}
+        .contact-text {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
 
-.wrap ul {
-padding: 0 30px;
-text-align: center;
-}
+        /* Right Content */
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
 
-.wrap li {
-display: inline-block;
-margin: 10px 10px 0 0;
-font-size: 18px;
-height: 20px;
-line-height: 20px;
-line-height: 1;
-}
+        /* Navigation */
+        .nav-bar {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px 25px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 25px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
 
-.wrap li:hover {}
+        .nav-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            list-style: none;
+        }
 
-.wrap li a {
-display: inline-block;
-color: #444;
-}
+        .nav-item a {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
 
-.wrap li a {
-text-decoration: none;
-color: #444;
-background: #fff;
-padding: 6px;
-}
+        .nav-item a:hover {
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
 
-.wrap li a:hover {
-color: #fff;
-background: #3399FF;
-padding: 6px;
-}
-.backtop{
-position: fixed;
-right: 2rem;
-bottom: 2rem;
-z-index: 1000;
-border: 1px solid red;
-}
-a>.btnbacktop{
-font-size: 2rem;
-margin: 1rem 0 0;
-padding: 0;
-width: 3.33rem;
-height: 3.33rem;
-line-height: 0;
-color: #333;
-background-color: #ffffff;
-border: 1px solid #e3e8ee;
-border-radius: 50%;
-box-shadow: 0 0 5px rgba(0,0,0,.05);
-}
-#hqestop img{opacity:0.6;}
+        /* Content Cards */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px 40px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
 
-@media screen and (max-width: 1100px) {
-.main {
-flex-direction: column;
+        .content-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-2px);
+        }
 
-}
-.main .wrap {
-display: none;
-}
+        .card-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--border-color);
+            position: relative;
+        }
 
-.main .left {
-width:100%;
-left: 0px;
-position: relative;
-}
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-.main .right {
-width: 100%;
-margin: 10px 0 0 0;
-box-sizing: border-box;
-}
-}
-</style>
+        .card-title i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        /* Biography */
+        .bio-text {
+            text-align: justify;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        /* News Timeline */
+        .news-list {
+            list-style: none;
+        }
+
+        .news-item {
+            position: relative;
+            padding: 15px 0 15px 30px;
+            border-left: 2px solid var(--border-color);
+            margin-left: 10px;
+        }
+
+        .news-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .news-date {
+            display: inline-block;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .news-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Research Interests */
+        .interests-list {
+            list-style: none;
+        }
+
+        .interest-item {
+            padding: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .interest-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .interest-item strong {
+            color: var(--primary-color);
+        }
+
+        /* Publications */
+        .pub-item {
+            padding: 20px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .pub-item:last-child {
+            border-bottom: none;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .pub-authors {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .pub-authors strong {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .pub-venue {
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Projects */
+        .project-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: var(--primary-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin: 20px 0 15px 0;
+        }
+
+        .project-list {
+            list-style: none;
+        }
+
+        .project-item {
+            padding: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .project-item:last-child {
+            border-bottom: none;
+        }
+
+        .project-item::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 0.6rem;
+            top: 16px;
+        }
+
+        /* Activities */
+        .activity-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin: 20px 0 15px 0;
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .activity-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Patents & Software */
+        .patent-item, .software-item {
+            padding: 15px 0;
+            border-bottom: 1px dashed var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .patent-item:last-child, .software-item:last-child {
+            border-bottom: none;
+        }
+
+        .patent-item strong, .software-item strong {
+            color: var(--primary-dark);
+        }
+
+        /* Teaching & Students */
+        .teaching-category, .student-category {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 20px 0 10px 0;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .teaching-list, .student-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .teaching-item, .student-item {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .teaching-item::before, .student-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* Education & Experience */
+        .edu-item, .exp-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px dashed var(--border-color);
+            align-items: flex-start;
+        }
+
+        .edu-item:last-child, .exp-item:last-child {
+            border-bottom: none;
+        }
+
+        .edu-year, .exp-year {
+            min-width: 120px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            padding-top: 3px;
+        }
+
+        .edu-content, .exp-content {
+            flex: 1;
+        }
+
+        .edu-school, .exp-position {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
+        .edu-major, .exp-dept {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .exp-note {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-light);
+        }
+
+        /* Links */
+        .links-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .link-item a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            border-radius: 12px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .link-item a:hover {
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .link-item a i {
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+
+            .nav-bar {
+                position: relative;
+                top: 0;
+            }
+
+            .content-card {
+                padding: 25px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .name {
+                font-size: 1.6rem;
+            }
+
+            .avatar {
+                width: 150px;
+                height: 150px;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+
+            .nav-list {
+                gap: 5px;
+            }
+
+            .nav-item a {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+
+            .links-list {
+                flex-direction: column;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection Color */
+        ::selection {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--primary-dark);
+        }
+    </style>
 </head>
-
-<!*************************Personal Information************************>
-
 <body>
-<div class="main">
-<div class="left">
-<h1>
-<p><img alt="" src="photo.jpg" style="WIDTH: 127px; HEIGHT: 140px" /></p>
-<p><b>
-Zhen Jia
-</b>
-</p>
-</h1>
-<div class="box">
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="avatar-container">
+                    <img src="photo.jpg" alt="Zhen Jia" class="avatar">
+                </div>
+                <h1 class="name">Zhen Jia</h1>
+                <p class="title">Lecturer / Assistant Professor, Ph.D.</p>
+                <div class="affiliation">
+                    <a href="https://scai.swjtu.edu.cn/index.htm" target="_blank">School of Computing and Artificial Intelligence</a><br>
+                    <a href="https://www.swjtu.edu.cn/" target="_blank">Southwest Jiaotong University (SWJTU)</a>
+                </div>
+            </div>
 
-<p> <i>Lecturer/Assistant Professor, Ph.D.<br>
-</i></p>
+            <div class="contact-section">
+                <h3 class="section-title">Contact</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        No. 999, Xi'an Road, Pidu District, Chengdu, China PR. 611756
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <a href="mailto:zjia@swjtu.edu.cn">zjia@swjtu.edu.cn</a><br>
+                        <a href="mailto:zhenjia1026@gmail.com">zhenjia1026@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Navigation -->
+            <nav class="nav-bar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#BIOGRAPHY">Biography</a></li>
+                    <li class="nav-item"><a href="#NEWS">News</a></li>
+                    <li class="nav-item"><a href="#EDUCATION">Education</a></li>
+                    <li class="nav-item"><a href="#EXPERIENCE">Experience</a></li>
+                    <li class="nav-item"><a href="#INTERESTS">Interests</a></li>
+                    <li class="nav-item"><a href="#PUBLICATIONS">Publications</a></li>
+                    <li class="nav-item"><a href="#PROJECTS">Projects</a></li>
+                    <li class="nav-item"><a href="#PATENTS">Patents</a></li>
+                    <li class="nav-item"><a href="#SOFTWARE">Software</a></li>
+                    <li class="nav-item"><a href="#ACTIVITIES">Activities</a></li>
+                    <li class="nav-item"><a href="#TEACHING">Teaching</a></li>
+                    <li class="nav-item"><a href="#STUDENTS">Students</a></li>
+                    <li class="nav-item"><a href="#LINKS">Links</a></li>
+                </ul>
+            </nav>
 
+            <!-- Biography -->
+            <section class="content-card" id="BIOGRAPHY">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-user-graduate"></i> Brief Biography</h2>
+                </div>
+                <p class="bio-text">
+                    Zhen Jia is now a Lecturer/Assistant Professor at the <a href="https://scai.swjtu.edu.cn/index.htm" target="_blank">School of Computing and Artificial Intelligence</a>, <a href="https://www.swjtu.edu.cn/" target="_blank">Southwest Jiaotong University (SWJTU)</a>. She serves as the Director of the Cloud Computing and Intelligent Technology Laboratory Platform. She was a visiting scholar at the QA group of D5 department, Max-Planck Institute for Informatics (MPII).
+                </p>
+                <p class="bio-text">
+                    In recent years, she has been the main researcher of the projects supported by the National Natural Science Foundation of China, the Sichuan Science and Technology Program, and several international collaboration projects. She has published more than 60 papers in international and domestic academic journals and conferences, and has obtained 2 invention patents and 5 computer software copyrights. She is the deputy president of the Natural Language Processing Committee and a member of the Big Data Committee of the Sichuan Computer Society. She won the third prize in the Tibet Autonomous Region Science and Technology Award in 2018.
+                </p>
+            </section>
 
-<p><br>
-School of Computing and Artificial Intelligence, Southwest Jiaotong University (SWJTU)</p>
-</div>
-<div class="box">
-<h3>contact</h3>
-<p> ADRESS:
-No. 999, Xi'an Road, Pidu District, Chengdu, China PR.
-</p>
+            <!-- News -->
+            <section class="content-card" id="NEWS">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-newspaper"></i> News</h2>
+                </div>
+                <ul class="news-list">
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> July 8th, 2024</span>
+                        <p class="news-content">My student Minjie Hu's project "Drug Target Binding Affinity Prediction based on Pre-training and Bilateral Attention" (ID: Yb106132024843) was awarded as the "Outstanding Graduation Thesis" of the university! His work was co-supervised by me and Prof. Kuo Yang from Beijing Jiaotong University.</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> March 5th, 2024</span>
+                        <p class="news-content">Our paper "TIQ: A Benchmark for Temporal Question Answering with Implicit Time Constraints" is accepted by TempWeb@WWW 2024!</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> January 23th, 2024</span>
+                        <p class="news-content">Our paper "Faithful Temporal Question Answering over Heterogeneous Sources" is accepted by WWW 2024!</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> April 27th, 2023</span>
+                        <p class="news-content">My five undergraduate students in the School of Computing and Artificial Intelligence and School of Electrical Engineering passed the defense of the Student Research Training Program (SRTP)!</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> April 25th, 2023</span>
+                        <p class="news-content">My four undergraduate students in SWJTU-Leeds Joint School passed the defense of the graduation projects!</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> April 2023</span>
+                        <p class="news-content">Our paper "Relational and Interactive Graph Attention Network for Aspect-level Sentiment Analysis" is accepted by the journal of Computer Application!</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> April 2023</span>
+                        <p class="news-content">Our paper "Chinese Medical Named Entity Recognition Based on Self-attention Mechanism and Lexicon Enhancement" is accepted by the journal of Computer Application!</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> March 2023</span>
+                        <p class="news-content">Our paper "High-precision Entity and Relation Extraction in Medical Domain Based on Pseudo-entity Data Augment" is accepted by the journal of Computer Application!</p>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date"><i class="far fa-calendar-alt"></i> March 2023</span>
+                        <p class="news-content">Our paper "Chinese Named Entity Recognition Based on Label Information Fusion and Multi-Task Learning" is accepted by the journal of Computer Science!</p>
+                    </li>
+                </ul>
+            </section>
 
-<p> POSTCODE: 611756.
-</p>
+            <!-- Education -->
+            <section class="content-card" id="EDUCATION">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-university"></i> Education / 毕业院校</h2>
+                </div>
+                
+                <div class="edu-item">
+                    <div class="edu-year">Ph.D.</div>
+                    <div class="edu-content">
+                        <p class="edu-school">Southwest Jiaotong University / 西南交通大学</p>
+                        <p class="edu-major">Information Security / 信息安全</p>
+                    </div>
+                </div>
+                
+                <div class="edu-item">
+                    <div class="edu-year">M.S.</div>
+                    <div class="edu-content">
+                        <p class="edu-school">Southwest Jiaotong University / 西南交通大学</p>
+                        <p class="edu-major">Computer Science and Technology / 计算机科学与技术</p>
+                    </div>
+                </div>
+                
+                <div class="edu-item">
+                    <div class="edu-year">B.S.</div>
+                    <div class="edu-content">
+                        <p class="edu-school">Tianjin University of Commerce / 天津商业大学</p>
+                        <p class="edu-major">Management Information System / 管理信息系统</p>
+                    </div>
+                </div>
+            </section>
 
-<p>EMAIL:&nbsp; zjia@swjtu.edu.cn; zhenjia1026@gmail.com</p>
+            <!-- Experience -->
+            <section class="content-card" id="EXPERIENCE">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-briefcase"></i> Experience / 工作经历</h2>
+                </div>
+                
+                <div class="exp-item">
+                    <div class="exp-year">2021 – Present</div>
+                    <div class="exp-content">
+                        <p class="exp-position">Lecturer / 讲师</p>
+                        <p class="exp-dept">School of Computing and Artificial Intelligence, Southwest Jiaotong University<br>西南交通大学计算机与人工智能学院</p>
+                    </div>
+                </div>
+                
+                <div class="exp-item">
+                    <div class="exp-year">2004 – 2021</div>
+                    <div class="exp-content">
+                        <p class="exp-position">Lecturer / 讲师</p>
+                        <p class="exp-dept">School of Information Science and Technology, Southwest Jiaotong University<br>西南交通大学信息科学与技术学院</p>
+                        <div class="exp-note">
+                            <strong>Note:</strong> During this period:<br>
+                            • 2006.09 – 2014.11: Part-time Ph.D. study in Information Security at SWJTU<br>
+                            • 2016.08 – 2017.08: Visiting Scholar at Max-Planck Institute for Informatics, Germany
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exp-item">
+                    <div class="exp-year">2001 – 2004</div>
+                    <div class="exp-content">
+                        <p class="exp-position">Teaching Assistant / 助教</p>
+                        <p class="exp-dept">School of Information Science and Technology, Southwest Jiaotong University<br>西南交通大学信息科学与技术学院</p>
+                    </div>
+                </div>
+            </section>
 
-</div>
-</div>
-</div>
+            <!-- Research Interests -->
+            <section class="content-card" id="INTERESTS">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-lightbulb"></i> Research Interests / 研究兴趣</h2>
+                </div>
+                <ul class="interests-list">
+                    <li class="interest-item">General interests: <strong>Natural language processing</strong>, <strong>Question answering</strong>, <strong>Information extraction</strong>, and <strong>Knowledge graph</strong></li>
+                    <li class="interest-item">Current focus: <strong>Complex question answering</strong> and <strong>information retrieval</strong> in vertical domain to achieve domain-oriented chatbot system</li>
+                    <li class="interest-item">Ph.D. topic: Research on Ontology Learning and Knowledge Acquisition from Chinese Online Encyclopedia</li>
+                </ul>
+            </section>
 
-<!*************************Contents************************>
+            <!-- Publications -->
+            <section class="content-card" id="PUBLICATIONS">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-book"></i> Selected Publications / 代表性论文</h2>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Faithful Temporal Question Answering over Heterogeneous Sources</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Philipp Christmann, Gerhard Weikum</p>
+                    <p class="pub-venue"><em>Proceedings of the ACM Web Conference 2024</em> (WWW), 2024</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">TIQ: A Benchmark for Temporal Question Answering with Implicit Time Constraints</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Philipp Christmann, Gerhard Weikum</p>
+                    <p class="pub-venue"><em>Companion Proceedings of the ACM Web Conference 2024</em> (WWW), 2024</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Complex Temporal Question Answering on Knowledge Graphs</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Soumajit Pramanik, Rishiraj Saha Roy, Gerhard Weikum</p>
+                    <p class="pub-venue"><em>Proceedings of the 30th ACM international conference on information and knowledge management</em> (CIKM), 2021</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Tequila: Temporal Question Answering over Knowledge Bases</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Abdalghani Abujabal, Rishiraj Saha Roy, Jannik Strötgen, Gerhard Weikum</p>
+                    <p class="pub-venue"><em>Proceedings of the 27th ACM international conference on information and knowledge management</em> (CIKM), 2018</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Tempquestions: A Benchmark for Temporal Question Answering</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Abdalghani Abujabal, Rishiraj Saha Roy, Jannik Strötgen, Gerhard Weikum</p>
+                    <p class="pub-venue"><em>Companion Proceedings of the The Web Conference</em> (WWW), 2018</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Weakly Supervised Relation Extraction Based on Tri-training and Noise Filtering</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Zhonglin Ye, Hongfeng Yin, Dake He</p>
+                    <p class="pub-venue"><em>Journal of Chinese Information Processing</em> 30(4):142--149,158, 2016</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Acquisition of Part-Whole Relations Based on Unsupervised Learning</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Dake He, Hongfeng Yin and Tianrui Li</p>
+                    <p class="pub-venue"><em>Journal of Southwest Jiaotong University</em> 49: 590--596, 2014</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Relation Extraction from Chinese Online Encyclopedia Based on Weakly Supervised Learning</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Dake He, Yan Yang, Yufei Yang, Zhonglin Ye</p>
+                    <p class="pub-venue"><em>CAAI Transactions on Intelligent Systems</em> 10: 377--383, 2015</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Extracting Attribute from Chinese Online Encyclopedia Based on Weakly Supervised Learning</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Yan Yang, and Dake He</p>
+                    <p class="pub-venue"><em>Journal of University of Electronic Science and Technology of China</em> 43: 758--763, 2014</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Acquisition of Class Attributes Based on Chinese Online Encyclopedia and Association Rule Mining</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Hongfeng Yin, Dake He</p>
+                    <p class="pub-venue"><em>Proceedings of the 7th International Conference on Intelligent Systems & Knowledge Engineering</em> (ISKE), 2014</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Attribute and Attribute Value Extracted from Chinese Wiki Encyclopedia</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Yufei Yang, Dake He, Shengjiu Liu, Hongfeng Yin</p>
+                    <p class="pub-venue"><em>Acta Scientiarum Naturalium Universitatis Pekinensis</em> 50: 41--47, 2013</p>
+                </div>
+                <div class="pub-item">
+                    <p class="pub-title">Research on Chinese Online Encyclopedia Open Category Hierarchy tree and Clustering Algorithms</p>
+                    <p class="pub-authors"><strong>Zhen Jia</strong>, Hongfeng Yin, Tianrui Li</p>
+                    <p class="pub-venue"><em>Application Research of Computers</em> 30: 1660--1663, 1674, 2013</p>
+                </div>
+            </section>
 
-<div class="right">
-<div class="wrap">
-<ul>
-<li><a href="index.html">HOMEPAGE</a></li> &nbsp; &nbsp;
-<li><a href="./#INTERESTS">INTERESTS</a></li> &nbsp; &nbsp;
-<li><a href="./#PUBLICATIONS">PUBLICATIONS</a></li> &nbsp; &nbsp;
-<li><a href="./#PROJECTS">PROJECTS</a></li> &nbsp; &nbsp;
-<li><a href="./#DEMO">DEMO</a></li> &nbsp; &nbsp;
-<li><a href="./#PATENTS">PATENTS</a></li> &nbsp; &nbsp;
- <!-- <li><a href="./#EDUCATION">EDUCATION</a></li> &nbsp; &nbsp;
-<li><a href="./#EXPERIENCE">EXPERIENCE</a></li> &nbsp; &nbsp;-->
-<li><a href="./#ACTIVITIES">ACTIVITIES</a></li> &nbsp; &nbsp;
-<li><a href="./#TEACHING">TEACHING</a></li> &nbsp; &nbsp;
+            <!-- Projects -->
+            <section class="content-card" id="PROJECTS">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-project-diagram"></i> Projects (within 3 years) / 项目（近三年）</h2>
+                </div>
+                
+                <span class="project-category">National Natural Science Foundation of China (NSFC) / 国家自然科学基金</span>
+                <ul class="project-list">
+                    <li class="project-item">January 2023 – December 2026: Research on Urban Spatio-temporal Series Prediction with Joint Enhancement of Data Knowledge / 数据知识联合增强的城市时空序列预测研究, Project No.: 62276215, Role: Participant</li>
+                    <li class="project-item">August 2025 – December 2029: Intelligent Identification Method for Obstructive Sleep Apnea Driven by Data and Knowledge Fusion / 数据与知识融合驱动的阻塞性睡眠呼吸暂停疾病智能辨识方法研究, Project No.: 62576295, Role: Participant</li>
+                    <li class="project-item">January 2022 – December 2025: Research on Deep Collaborative Fusion and Cross-Domain Federated Learning Techniques for Urban Spatio-temporal Big Data / 面向城市时空大数据的深度协同融合与跨域联邦学习技术研究, Project No.: 62176221, Role: Participant</li>
+                    <li class="project-item">January 2023 – December 2026: Research on Psychophysiological Semantic Representation and Intelligent Identification of Affective Disorders Fused with Clinical Big Data / 融合临床大数据的心理生理语义表征与情感障碍智能辨识方法研究, Project No.: 62272398, Role: Participant</li>
+                </ul>
 
-</ul>
+                <span class="project-category">Provincial and Ministerial Projects / 省部级项目</span>
+                <ul class="project-list">
+                    <li class="project-item">November 2024 – November 2027: Generative Computing Framework Construction and Large Model Migration for Domestic Intelligent Computing Clusters / 面向国产化智算集群的生成计算框架构建和大模型迁移, Project No.: 2024ZDZX0012, Role: Participant</li>
+                    <li class="project-item">January 2024 – December 2024: Research and Application of Deep Fusion and Generative AI Key Technologies for Urban Big Data / 面向城市大数据的深度融合与生成式AI关键技术研究及应用, Project No.: 2024YFHZ0024, Role: Participant</li>
+                    <li class="project-item">April 2024 – March 2026: Achievement Transformation and Industrial Application of Intelligent Traffic Spatio-temporal Big Data Analysis and Decision Making / 智能交通时空大数据分析与决策成果转化及产业化应用, Project No.: 2024ZHCG0166, Role: Participant</li>
+                </ul>
+            </section>
 
-</div>
+            <!-- Patents -->
+            <section class="content-card" id="PATENTS">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-certificate"></i> Patents / 专利</h2>
+                </div>
+                
+                <p style="font-weight: 600; color: var(--primary-color); margin-bottom: 15px;">Granted Patents / 已授权专利</p>
+                <div class="patent-item">
+                    Tianrui Li, Meng Wu, <strong>Zhen Jia</strong>, Shengdong Du, Fei Teng, Fusion Attention-Based Modeling Method for Medical Named Entity Recognition / 基于融合注意力的医疗命名实体识别建模方法, Patent No.: ZL202110927320.1, Granted Date: 2023-04-07
+                </div>
+                <div class="patent-item">
+                    Tianrui Li, Xiong Liao, <strong>Zhen Jia</strong>, Wei Luo, A Modeling Method for Named Entity Recognition of Medicine Instructions / 一种药品说明书文本命名实体识别建模方法, Patent No.: ZL202110855063.5, Granted Date: 2023-04-07
+                </div>
+                <div class="patent-item">
+                    Tianrui Li, Dong Qiao, Chengfeng Yin, Shuying Wang, <strong>Zhen Jia</strong>, A Method for Automobile Competitor Comparison Based on Opinion Mining Analysis / 一种基于观点挖掘分析的汽车竞品对比方法, Patent No.: CN110415071B, Granted Date: 2024-02-27
+                </div>
 
+                <p style="font-weight: 600; color: var(--primary-color); margin: 20px 0 15px 0;">Pending Patents / 申请中专利</p>
+                <div class="patent-item">
+                    Fei Teng, Jie Hu, Shengdong Du, Fengmao Lyu, <strong>Zhen Jia</strong>, Xiaofei Zhu, Yunlong Zhu, A Semantic Reasoning Method Based on Uncertain Knowledge Graphs / 一种基于不确定性知识图谱的语义推理方法, Status: Pending / 申请中
+                </div>
+            </section>
 
-<!*************************BRIEF BIOGRAPHY************************>
+            <!-- Software Copyrights -->
+            <section class="content-card" id="SOFTWARE">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-code"></i> Software Copyrights / 软件著作权</h2>
+                </div>
+                <div class="software-item">
+                    Rational Medication Use Review System Based on Medical Knowledge Graphs V1.0 / 基于医药知识图谱的合理用药审查系统V1.0<br>
+                    <em>Registration No.: 2021SR1784738, Date: 2021-09-01</em>
+                </div>
+                <div class="software-item">
+                    Medical Insurance Review System Based on Medical Knowledge Graphs V1.0 / 基于医疗知识图谱的医保审查系统V1.0<br>
+                    <em>Registration No.: 2021SR1782737, Date: 2021-09-01</em>
+                </div>
+                <div class="software-item">
+                    Chinese Text Proofreading System [CTIC] V1.0 / 中文文本审校系统[简称:CTIC]V1.0<br>
+                    <em>Registration No.: 2018SR135100, Date: 2017-12-31</em>
+                </div>
+                <div class="software-item">
+                    Multi-source Information Integration System for Science and Technology Resource Pool of Regional Industrial Clusters V1.0 / 区域产业集群科技资源池多源信息集成系统V1.0<br>
+                    <em>Registration No.: 2019SR0973615, Date: 2019-05-09</em>
+                </div>
+                <div class="software-item">
+                    Information Extraction Service System for Science and Technology Policy Resources of Regional Industrial Clusters V1.0 / 区域产业集群科技政策资源信息抽取服务系统V1.0<br>
+                    <em>Registration No.: 2019SR0838838, Date: 2019-05-31</em>
+                </div>
+                <div class="software-item">
+                    Dynamic Display Service System for Science and Technology Policy Resources of Regional Industrial Clusters V1.0 / 区域产业集群科技政策资源动态展示服务系统V1.0<br>
+                    <em>Registration No.: 2019SR0561288, Date: 2019-03-31</em>
+                </div>
+                <div class="software-item">
+                    SWJTU Chinese Word Segmentation and Intelligent Question Answering System V1.0 / 西南交大中文分词与智能问答系统V1.0<br>
+                    <em>Registration No.: 2016SR139479, Date: 2015-06-30</em>
+                </div>
+            </section>
 
-<div class="rightBox text">
-<p id="BIOGRAPHY">
-<font size="5"><b>BRIEF BIOGRAPHY</b></font>
-</p>
+            <!-- Professional Activities -->
+            <section class="content-card" id="ACTIVITIES">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-users"></i> Professional Activities / 专业活动</h2>
+                </div>
+                
+                <span class="activity-category">Area Chair / 领域主席</span>
+                <ul class="activity-list">
+                    <li class="activity-item">Knowledge Graph Application, the 16th China Conference on Knowledge Graph and Semantic Computing (CCKS 2022)</li>
+                </ul>
 
-<p style="text-align:justify";>
+                <span class="activity-category">Program Committee Member / 程序委员会委员</span>
+                <ul class="activity-list">
+                    <li class="activity-item">Short Research Papers Track at CIKM 2025</li>
+                    <li class="activity-item">Short Research Papers Track at CIKM 2024</li>
+                    <li class="activity-item">The Web Conference 2024 (WWW) 2024</li>
+                    <li class="activity-item">Association for the Advancement of Artificial Intelligence (AAAI) 2023, 2022, 2021</li>
+                    <li class="activity-item">Annual Meeting of the Association for Computational Linguistics (ACL) 2021</li>
+                    <li class="activity-item">International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR) 2023</li>
+                    <li class="activity-item">International Conference on Empirical Methods in Natural Language Processing (EMNLP) 2020</li>
+                    <li class="activity-item">Annual Conference of the North American Chapter of the Association for Computational Linguistics (NAACL) 2019</li>
+                    <li class="activity-item">International Conference on Natural Language Processing and Information Retrieval (NLPIR) 2022, 2021, 2020, 2019</li>
+                </ul>
 
-Zhen Jia is now a Lecturer at the <a href="https://scai.swjtu.edu.cn/index.htm"  target="_blank">School of Computing and Artificial Intelligence</a>, <a href="https://www.swjtu.edu.cn/"  target="_blank">Southwest Jiaotong University (SWJTU)</a>.
-She was a visiting scholar at the <a href="https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/question-answering/"  target="_blank">QA group</a> of <a href="https://www.mpi-inf.mpg.de/departments/databases-and-information-systems"  target="_blank"> D5 department</a>, <a href="https://www.mpi-inf.mpg.de/home"  target="_blank">Max-Planck Institute for Informatics (MPII)</a>.
-In recent years, she has been the main researcher of the projects supported by the National Natural Science Foundation of China,
-the Sichuan Science and Technology Program, and several international collaboration projects.
-She has published more than 60 papers in international and domestic academic journals and conferences, and has obtained 2 invention patents and 5 computer software copyrights.
-She is the deputy president of the Natural Language Processing Committee and a member of the Big Data Committee of the Sichuan Computer Society.
-She won the third prize in the Tibet Autonomous Region Science and Technology Award in 2018.
+                <span class="activity-category">Journal Reviewer / 期刊审稿人</span>
+                <ul class="activity-list">
+                    <li class="activity-item">WIREs Data Mining and Knowledge Discovery</li>
+                    <li class="activity-item">Chinese Journal of Computers</li>
+                </ul>
 
-</div>
+                <span class="activity-category">Project Reviewer / 项目评审人</span>
+                <ul class="activity-list">
+                    <li class="activity-item">Deutsche Forschungsgemeinschaft (DFG), German Research Foundation</li>
+                </ul>
+            </section>
 
-<!*************************** News*************************>
-<div class="rightBox">
-<p id="NEWS">
-<font size="5"><b>NEWS</b></font> &nbsp;
-</p>
+            <!-- Teaching -->
+            <section class="content-card" id="TEACHING">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-chalkboard-teacher"></i> Teaching / 教学</h2>
+                </div>
+                
+                <p class="teaching-category">Courses / 课程</p>
+                <ul class="teaching-list">
+                    <li class="teaching-item"><strong>Undergraduate:</strong> Natural Language Processing, Computer Network, Introduction to Programming</li>
+                    <li class="teaching-item"><strong>Graduate:</strong> Natural Language Processing</li>
+                </ul>
 
+                <p class="teaching-category">Teaching Reform / 教学改革</p>
+                <ul class="teaching-list">
+                    <li class="teaching-item">Construction of Sichuan Provincial High-Level Course "Fundamentals of Natural Language Processing" / 四川省高等学校高阶课程建设《自然语言处理基础》, 2025-2027</li>
+                    <li class="teaching-item">SWJTU AI Course Construction Project for Graduate Students "Natural Language Processing" / 西南交通大学2025年首批研究生AI课程建设项目《自然语言处理》, 2025</li>
+                    <li class="teaching-item">SWJTU Graduate Education and Teaching Reform Project "Exploration of New Teaching Models Based on AI Smart Courses" / 西南交通大学2025年研究生教育教学改革项目《基于AI智慧课程的新型教学模式探索》, 2025-2027</li>
+                </ul>
+            </section>
 
+            <!-- Students -->
+            <section class="content-card" id="STUDENTS">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-user-friends"></i> Students / 学生</h2>
+                </div>
+                
+                <p class="student-category">Graduation Project / 毕业设计</p>
+                <ul class="student-list">
+                    <li class="student-item"><strong>2026:</strong> Wang Yifan, Tang Wei, Xiong Jiaqi (Leeds), Yi Fanyu (Leeds), Lu Yulin (Leeds), Nie Wenhao (Leeds), Ding Yixiao (Leeds) / 王一帆，唐玮，熊佳棋（利兹），易凡驭（利兹），陆昱霖（利兹），聂文浩（利兹），丁亦逍（利兹）</li>
+                    <li class="student-item"><strong>2025:</strong> Guo Fangjie, Deng Tiantian, Ouyang Yuyuan, Sun Yi, Huang Liang / 郭方杰，邓天天，欧阳钰源，孙毅，黄良</li>
+                    <li class="student-item"><strong>2024:</strong> Hu Minjie, Jiang Yuhang, He Zhiwen, Ji Guoye, Deng Yanming, Ren Yuhang / 胡敏杰, 姜宇航, 何志文, 姬国烨, 邓彦铭, 任宇航</li>
+                    <li class="student-item"><strong>2023:</strong> Lin Yu, Wang Yifan, Jing Haoyu; Guo Chengjie (Leeds), Zhang Jia (Leeds), Zhao Chenhao (Leeds), Liu Zhishan (Leeds) / 林雨，王一凡，荆浩宇；郭成杰（利兹），张嘉（利兹），赵晨皓（利兹），刘芷杉（利兹）</li>
+                </ul>
 
+                <p class="student-category">Class Mentor / 班级导师</p>
+                <ul class="student-list">
+                    <li class="student-item">Class 3, Grade 2023, Computer Science (2023-2026) / 2023级计算机3班（2023-2026）</li>
+                </ul>
 
-<ul>
-<p style="text-align:justify"; text-justify:inter-ideograph;>
-<li>
- <font size="3" color="#C70039"> [<I>July 8th, 2024</I>] </italic> </font> My student Minjie Hu's project "Drug Target Binding Affinity Prediction based on Pre-training and Bilateral Attention" (ID: Yb106132024843) was awarded as the "Outstanding Graduation Thesis" of the university! His work was co-supervised by me and Prof. Kuo Yang from Beijing Jiaotong University.
-</li>
+                <p class="student-category">Academic Mentor / 学术导师</p>
+                <ul class="student-list">
+                    <li class="student-item">Zhu Menghan, Lu Binghui (2023-2026) / 朱梦涵，路秉慧（2023-2026）</li>
+                </ul>
 
-<li>
-<font size="3" color="#C70039"> [<I>March 5th, 2024</I>] </italic> </font> Our paper "TIQ: A Benchmark for Temporal Question Answering with Implicit Time Constraints" is accepted by TempWeb@WWW 2024!
-</li>
-<li>
-<font size="3" color="#C70039"> [<I>January 23th, 2024</I>] </italic> </font> Our paper "Faithful Temporal Question Answering over Heterogeneous Sources" is accepted by WWW 2024!
-</li>
-    <li>
-<font size="3" color="#C70039"> [<I>April 27th, 2023</I>] </italic> </font> My five undergraduate students in the <a href="https://scai.swjtu.edu.cn/index.htm"> School of Computing and Artificial Intelligence </a> and <a href="https://dqxy.swjtu.edu.cn/English.htm"> School of Electrical Engineering </a> passed the defense of the Student Research Training Program (SRTP)!
-</li>
-<li>
-<font size="3" color="#C70039"> [<I>April 25th, 2023</I>] </italic> </font> My four undergraduate students in <a href="https://leeds.swjtu.edu.cn/en/Home.htm"> SWJTU-Leeds Joint School </a>  passed the defense of the graduation projects!
-</li>
-<li>
-<font size="3" color="#C70039"> [<I>April 2023</I>] </italic> </font> Our paper "Relational and Interactive Graph Attention Network for Aspect-level Sentiment Analysis" is accepted by the journal of Computer Application!
-</li>
-<li>
-<font size="3" color="#C70039"> [<I>April 2023</I>] </italic> </font> Our paper "Chinese Medical Named Entity Recognition Based on
-Self-attention Mechanism and Lexicon Enhancement" is accepted by the journal of Computer Application!
-</li>
-<li>
-<font size="3" color="#C70039"> [<I>March 2023</I>] </italic> </font> Our paper "High-precision Entity and Relation Extraction in Medical Domain Based on Pseudo-entity Data Augment" is accepted by the journal of Computer Application!
-</li>
-<li>
-<font size="3" color="#C70039"> [<I>March 2023</I>] </italic> </font> Our paper "Chinese Named Entity Recognition Based on Label Information Fusion and Multi-Task Learning" is accepted by the journal of Computer Science!
-</li>
+                <p class="student-category">Study Mentor / 学业导师</p>
+                <ul class="student-list">
+                    <li class="student-item">Li Jiacheng et al. (17 students), Leeds Computer Science Grade 2023 (2023-2026) / 利兹学院计算机2023级李家成等17人（2023-2026）</li>
+                </ul>
 
-</ul>
+                <p class="student-category">SRTP Projects / 大学生科研训练计划项目</p>
+                <ul class="student-list">
+                    <li class="student-item"><strong>2026:</strong> Hou Xinghong, Li Jiacheng, Yang Ziyi, Ding Xipeng, Hong Zhengyu, Research and Implementation of Conversational Temporal Question Answering System / 侯幸宏，李家成，杨梓艺，丁锡朋，洪政宇，对话式时序问答系统研究与实现，250511</li>
+                    <li class="student-item"><strong>2026:</strong> Luo Lele, Luo Zhaohua, Nie Wenhao, Research and Implementation of Drug Recommendation Method Based on Knowledge Graph and GraphRAG / 罗乐乐，罗昭华，聂文浩，基于知识图谱与GraphRag的药品推荐方法研究与实现，250531</li>
+                    <li class="student-item"><strong>2025:</strong> Ma Xixiang, Zhu Menghan, Lu Binghui, Zhou Xiabing, Jin Chenyang, Research and Implementation of Encyclopedia Knowledge Quality Evaluation Method / 马熙翔，朱梦含，路秉慧，周夏冰，金辰炀，百科知识质量评估方法研究与实现，240513</li>
+                    <li class="student-item"><strong>2024:</strong> Zhang Zixing, Liu Yile, Liu Mianyu, Jiang Rui, Zhao Jingyi, Research and Implementation of Temporal Complex Question Answering Technology Based on Multi-source Heterogeneous Data / 张子兴，刘以勒，刘绵昱，蒋蕊，赵婧怡，基于多源异构数据源的时间复杂问题问答技术的研究与实现，230507</li>
+                    <li class="student-item"><strong>2024:</strong> He Zhiwen, Ji Guoye, Deng Yanming, Ren Yuhang, Hu Jingsi, Research and Implementation of Temporal Complex Question Answering Technology Based on Graph Neural Network / 何志文，姬国烨，邓彦铭，任宇航，胡靖偲，基于图神经网络的时间复杂问题问答技术研究与实现，230515</li>
+                    <li class="student-item"><strong>2023:</strong> Fang Yuchen, Jiang Yuhang, Sheng Zijie, Du Shujian, Qiu Qingling, Research on Railway Travel Question Answering Technology Based on Knowledge Graph / 方雨晨，姜宇航，盛子杰，杜书渐，邱庆龄，面向知识图谱的铁路出行问答技术研究，220512</li>
+                </ul>
+
+                <p class="student-category">Leeds Qihang Projects / 利兹启航项目</p>
+                <ul class="student-list">
+                    <li class="student-item"><strong>2026:</strong> Zhang Wenbo, Wang Jiaxiang, Zheng Chengyi, Application of Recursive Question Understanding in Complex Question Answering / 张文博，王家祥，郑诚毅，递归式问题理解在复杂问答中的应用，QM106130094</li>
+                    <li class="student-item"><strong>2025:</strong> Jin Chenyang, Hou Xinghong, Huang Zihan, RAG-based Recursive Temporal Question Understanding and Answering Demonstration System / 金辰炀，侯幸宏，黄子涵，RAG-based Recursive Temporal Question Understanding and Answering Demonstration System，Q106130132</li>
+                    <li class="student-item"><strong>2024:</strong> Zhou Xiabing, Jin Chenyang, Research on Internet Encyclopedia Quality Evaluation / 周夏冰，金辰炀, Research on Internet Encyclopedia Quality Evaluation, Q106130080</li>
+                </ul>
+            </section>
+
+            <!-- Links -->
+            <section class="content-card" id="LINKS">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-link"></i> Links</h2>
+                </div>
+                <ul class="links-list">
+                    <li class="link-item">
+                        <a href="https://scholar.google.com/citations?user=6HbgJ2IAAAAJ&hl=en" target="_blank">
+                            <i class="fas fa-graduation-cap"></i> Google Scholar
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="https://github.com/zhenjia2017" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="https://www.linkedin.com/in/zhen-jia-a92182167/" target="_blank">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>Last updated: February 15, 2026</p>
+            </footer>
+        </main>
     </div>
-<!*********************** INTERESTS**************************>
-<div class="rightBox">
-<p id="INTERESTS">
-<font size="5"><b>RESEARCH INTERESTS</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-<ul>
-<li>
-General interests: <b>Natural language processing</b>, <b>Question answering</b>, <b>Information extraction</b>, and <b>Knowledge graph</b>
-</li>
-<li>Current focus: <b>Complex question answering</b> and <b>information retrieval</b> in vertical domain to achieve domain-oriented chatbot system
-</li>
-<li>Ph.D. topic: Research on Ontology Learning and Knowledge Acquisition from Chinese Online Encyclopedia</li>
-</ul>
 
-</div>
-
-<!**********************SELECTED PUBLICATIONS**************************>
-
-<div class="rightBox">
-<p id="PUBLICATIONS">
-<font size="5"><b>SELECTED PUBLICATIONS</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-
-<ul>
-
-<li>
-<p style="text-align:justify"; text-justify:inter-ideograph;>
-Faithful Temporal Question Answering over Heterogeneous Sources<br>
-<strong>Zhen Jia</strong>, Philipp Christmann, Gerhard Weikum<br>
-<I>Proceedings of the ACM Web Conference 2024</I> (WWW), 2024
-</li>
-
-    <li>
-<p style="text-align:justify"; text-justify:inter-ideograph;>
-TIQ: A Benchmark for Temporal Question Answering with Implicit Time Constraints<br>
-<strong>Zhen Jia</strong>, Philipp Christmann, Gerhard Weikum<br>
-<I>Companion Proceedings of the ACM Web Conference 2024</I> (WWW), 2024
-</li>
-
-
-
-<li>
-<p style="text-align:justify"; text-justify:inter-ideograph;>
-Complex Temporal Question Answering on Knowledge Graphs<br>
-<strong>Zhen Jia</strong>, Soumajit Pramanik, Rishiraj Saha Roy, Gerhard Weikum<br>
-<I>Proceedings of the 30th ACM international conference on information and knowledge management</I> (CIKM), 2021
-</li>
-
-<li>
-<p style="text-align:justify"; text-justify:inter-ideograph;>
-Tequila: Temporal Question Answering over Knowledge Bases<br>
-<strong>Zhen Jia</strong>, Abdalghani Abujabal, Rishiraj Saha Roy, Jannik Strötgen, Gerhard Weikum<br>
-<I>Proceedings of the 27th ACM international conference on information and knowledge management</I> (CIKM), 2018
-</li>
-
-
-<li>
-<p style="text-align:justify"; text-justify:inter-ideograph;>
-Tempquestions: A Benchmark for Temporal Question Answering<br>
-<strong>Zhen Jia</strong>, Abdalghani Abujabal, Rishiraj Saha Roy, Jannik Strötgen, Gerhard Weikum<br>
-<I>Companion Proceedings of the The Web Conference</I> (WWW), 2018
-</li>
-
-<li>
-<p style="text-align:justify"; text-justify:inter-ideograph;>
-Weakly Supervised Relation Extraction Based on Tri-training and Noise Filtering<br>
-<strong>Zhen Jia</strong>, Zhonglin Ye, Hongfeng Yin, Dake He<br>
-<I>Journal of Chinese Information Processing</I> 30(4):142--149,158, 2016
-</li>
-
-<li><p style="text-align:justify"; text-justify:inter-ideograph;>
-Acquisition of Part-Whole Relations Based on Unsupervised Learning<br>
-<strong>Zhen Jia</strong>, Dake He, Hongfeng Yin and Tianrui Li<br>
-<I>Journal of Southwest Jiaotong University</I> 49: 590--596, 2014
-</li>
-
-<li>
-    <p style="text-align:justify"; text-justify:inter-ideograph;>
-Relation Extraction from Chinese Online Encyclopedia Based on Weakly Supervised Learning<br>
-<strong>Zhen Jia</strong>, Dake He, Yan Yang, Yufei Yang, Zhonglin Ye<br>
- <I>CAAI Transactions on Intelligent Systems</I> 10: 377--383, 2015
-</li>
-
-<li>
-    <p style="text-align:justify"; text-justify:inter-ideograph;>
-Extracting Attribute from Chinese Online Encyclopedia Based on Weakly Supervised Learning<br>
-<strong>Zhen Jia</strong>, Yan Yang, and Dake He<br>
- <I>Journal of University of Electronic Science and Technology of China</I> 43: 758--763, 2014
-</li>
-
- <li>   <p style="text-align:justify"; text-justify:inter-ideograph;>
-Acquisition of Class Attributes Based on Chinese Online Encyclopedia and Association Rule Mining<br>
-<strong>Zhen Jia</strong>, Hongfeng Yin, Dake He<br>
- <I>Proceedings of the 7th International Conference on Intelligent Systems \& Knowledge Engineering</I> (ISKE), 2014
-</li>
-
- <li><p style="text-align:justify"; text-justify:inter-ideograph;>
-     Attribute and Attribute Value Extracted from Chinese Wiki Encyclopedia<br>
- <strong>Zhen Jia</strong>,Yufei Yang, Dake He, Shengjiu Liu, Hongfeng Yin<br>
- <I>Acta Scientiarum Naturalium Universitatis Pekinensis</I> 50: 41--47, 2013
-
- <li><p style="text-align:justify"; text-justify:inter-ideograph;>
-    Research on Chinese Online Encyclopedia Open Category Hierarchy tree and Clustering Algorithms<br>
- <strong>Zhen Jia</strong>, Hongfeng Yin, Tianrui Li<br>
- <I>Application Research of Computers</I> 30: 1660--1663, 1674, 2013
-
-
-
-
-
-
-</ul>
-
-
-
-
-</div>
-
-
-
-<!**************** PROJECTS ****************>
-
-<div class="rightBox">
-<p id="PROJECTS">
-<font size="5"><b>PROJECTS (in progress)</b> </font> &nbsp; <a href="#top">Go Top</a>
-</p>
-
-<ul>
-
-<li>
-January 2022 – December 2025: Research on Deep Collaborative Fusion and Cross-Domain Federated Learning Techniques for Urban Spatio-temporal Big Data, National Natural Science Foundation of China
-</li>
-
-<li>
-January 2023 – December 2026: Research on Urban Spatio-temporal Series Prediction with Joint Enhancement of Data Knowledge, National Natural Science Foundation of China
-</li>
-
-</ul>
-
-
-
-</div>
-
-<!**************** DEMO ****************>
-
-<div class="rightBox">
-<p id="DEMO">
-<font size="5"><b>DEMO</b> </font> &nbsp; <a href="#top">Go Top</a>
-</p>
-
-<ul>
-<li>
-<a href="https://faith.mpi-inf.mpg.de"  target="_blank"> FAITH: Faithful Temporal Question Answering over Heterogeneous Sources </a>
-</li>
-
-<li>
-<a href="https://exaqt.mpi-inf.mpg.de"  target="_blank"> EXAQT: Complex Temporal Question Answering on Knowledge Graphs </a>
-</li>
-
-<li>
-<a href="https://tequila.mpi-inf.mpg.de/"  target="_blank"> TEQUILA: Temporal Question Answering over Knowledge Bases </a>
-</li>
-<li>
-Rational Medicine Use System based on Medical Knowledge Graphs
-</li>
-<li>
-Chinese Word Segmentation System
-</li>
-<li>
-Chinese Open Question Answering System
-</li>
-<li>
-Intelligent Text Proofreading based on Cloud Computing Platform
-</li>
-<li>
-Technology Service Consulting System based on Big Data </li>
-</ul>
-
-
-
-</div>
-
-<!**************** Services ****************>
-
-<div class="rightBox">
-<p id="ACTIVITIES">
-<font size="5"><b>PROFESSIONAL ACTIVITIES</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-
-<p>
-<b>Area Chair</b>
-</p>
-<ul><li>Knowledge Graph Application, the 16th China Conference on Knowledge Graph and Semantic Computing（CCKS 2022）</li></ul>
-
-<p>
-<b>Program Committee Member</b>
-</p>
-
-<ul>
-<li>Short Research Papers Track at CIKM 2025 </li>
-<li>Short Research Papers Track at CIKM 2024 </li>
-<li>The Web Conference 2024 (WWW) 2024 </li>
-<li>Association for the Advancement of Artificial Intelligence (AAAI) 2023, 2022, 2021 </li>
-<li>Annual Meeting of the Association for Computational Linguistics (ACL) 2021 </li>
-<li>International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR)  2023 </li>
-<li>International Conference on Empirical Methods in Natural Language Processing (EMNLP) 2020  </li>
-<li>Annual Conference of the North American Chapter of the Association for Computational Linguistics (NAACL) 2019 </li>
-<li>International Conference on Natural Language Processing and Information Retrieval (NLPIR) 2022, 2021, 2020, 2019 </li>
-
-
-</ul>
-
-
-<p>
-<b>Journal Reviewer</b></font>
-</p>
-
-<ul>
-
-<li>WIREs Data Mining and Knowledge Discovery </li>
-<li>Chinese Journal of Computers </li>
-</ul>
-</div>
-
-<!*************************PATENTS************************>
-<div class="rightBox">
-<p id="PATENTS">
-<font size="5"><b>PATENTS</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-<ul>
-<li>Tianrui Li, Xiong Liao, <b>Zhen Jia</b>, Wei Luo, A Modeling Method for Named Entity Recognition of Medicine Instructions, ZL202110855063.5, patent granted on April 7, 2023</li>
-<li>Tianrui Li, Meng Wu, <b>Zhen Jia</b>, Shengdong Du, Fei Teng, Fusion Attention-Based Modeling Method for Medical Named Entity Recognition, ZL202110927320.1, patent granted on April 7, 2023</li>
-</ul>
-</div>
- <!--
-<!*************************EDUCATION************************>
-<div class="rightBox">
-<p id="EDUCATION">
-<font size="5"><b>EDUCATION</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-<ul>
-<li>December 2014: Ph.D., School of Information and Science Technology, Southwest Jiaotong University, Chengdu, China</li>
-<!<li>June 2001: Master of Technology, Computer Application Technology, School of Information and Science Technology, Southwest Jiaotong University, Chengdu, China</li>>
-<!<li>June 1998: Bachelor of Engineering, Management Information System, School of Computer Science and Engineering, Tianjin Commercial University, Tianjin, China</li>>
-</ul>
-</div>
-
-  <!*************************EXPERIENCE************************>
-<div class="rightBox">
-<p id="EXPERIENCE">
-<font size="5"><b>EXPERIENCE</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-<ul>
-
-<li>March 2021 – present: Lecturer, School of Computing and Artificial Intelligence, Southwest Jiaotong University</li>
-<li>August 2016 – Auguest 2017: Visiting scholar, Department D5 Databases and Information Systems, Max-Planck Institute for Informatics</li>
-<li>July 2004 – February 2021: Lecturer, School of Information and Science Technology, Southwest Jiaotong University</li>
-<li>July 2001 – June 2004: Research and Teaching Assistant, School of Information and Science Technology, Southwest Jiaotong University</li>
-</ul>
-
-</div>
--->
-    <!****************************** TEACHING******************************>
-<div class="rightBox">
-    <p id="TEACHING">
-<font size="5"><b>TEACHING</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-
-<p>
-<b>Undergraduate Courses</b></font>
-</p>
-
-<ul>
-<li>Natural Language Processing
-</li>
-
-<li>Computer Network
-</li>
-<li>Introduction to Programming
-</li>
-</ul>
-
-<p>
-<font size="3">
-<b>Graduate Courses</b></font>
-</p>
-<li> Natural Language Processing
-</li>
-
-</ul>
-
-
-</div>
-<!*************************************************>
-<!****************************** LINKS******************************>
-<div class="rightBox">
-    <p id="LINKS">
-<font size="5"><b>Links</b></font>  &nbsp; <a href="#top">Go Top</a>
-</p>
-
-
-
-<ul>
-<li>
-<a href="https://scholar.google.com/citations?user=6HbgJ2IAAAAJ&hl=en"  target="_blank"> Google Scholar page </a>
-</li>
-<li>
-<a href="https://github.com/zhenjia2017"  target="_blank"> Github page </a>
-</li>
-<li>
-<a href="https://www.linkedin.com/in/zhen-jia-a92182167/"  target="_blank"> LinkedIn page </a>
-</li>
-</ul>
-
-</div>
-
-
-
-<!*****************************updated date***********************************>
-<div class="rightBox">
-
-Last updated date: September 28, 2024.
-<br>
-</div>
-<!*********************************Visit tracker**********************************>
-
-
-
-
-</div>
-
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Back to Top functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>
-
